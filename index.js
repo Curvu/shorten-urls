@@ -1,6 +1,6 @@
 const { Plugin } = require('powercord/entities');
 
-//! Information to reach API
+//! Information to reach the API
 const key = 'effbbb22b12e4952864db924c4e017db';
 const endpoint = 'https://api.rebrandly.com/v1/links';
 
@@ -12,7 +12,7 @@ module.exports = class ShortenUrls extends Plugin {
             usage: '{c} [ ...url ]',
             executor: (args) => ({
                 send: true,
-                result: this.shorten(args)
+                result: `https://${this.shorten(args)}` // fix this (getting undefined)
             })
         })
     }
@@ -30,7 +30,10 @@ module.exports = class ShortenUrls extends Plugin {
 
         fetch(endpoint, options)
         .then(response => response.json())
-        .then(response => response.shortUrl)
+        .then(jsonResponse => {
+            console.log(jsonResponse.shortUrl)
+            return jsonResponse.shortUrl
+        })
         .catch(err => console.log(err));
     }
 }

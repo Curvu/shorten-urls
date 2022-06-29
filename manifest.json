@@ -1,0 +1,9 @@
+{
+    "name": "Shorten Urls",
+    "version": "1.0.0-beta",
+    "description": "Make urls shorter",
+    "author": "Curvu#0254",
+    "license": "MIT",
+    "nsfw": false,
+    "permissions": "ext_api"
+}

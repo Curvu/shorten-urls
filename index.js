@@ -12,7 +12,7 @@ module.exports = class ShortenUrls extends Plugin {
             usage: '{c} [ ...url ]',
             executor: (args) => ({
                 send: true,
-                result: `https://${this.shorten(args)}` // fix this (getting undefined)
+                result: this.shorten(args)
             })
         })
     }
@@ -21,19 +21,16 @@ module.exports = class ShortenUrls extends Plugin {
         powercord.api.commands.unregisterCommand('short');
     }
 
-    shorten(args) {
+    async shorten(args) {
         const options = {
             method: 'POST',
             headers: { Accept: 'application/json', 'Content-Type': 'application/json', apikey: key},
             body: JSON.stringify({ destination: args.join('') })
         }
 
-        fetch(endpoint, options)
-        .then(response => response.json())
-        .then(jsonResponse => {
-            console.log(jsonResponse.shortUrl)
-            return jsonResponse.shortUrl
-        })
-        .catch(err => console.log(err));
+        const response = await fetch(endpoint, options);
+        const json = await response.json();
+        console.log(json.shortUrl);
+        return `https://${json.shortUrl}`;
     }
 }

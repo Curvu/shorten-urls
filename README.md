@@ -1,2 +1,2 @@
 # shorten-urls
-Not working yet
+Plugin for POWERCORD (powercord closed 4ever)
